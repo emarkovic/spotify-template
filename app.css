@@ -23,3 +23,7 @@ img {
     max-height: 200px;
     max-width: : 200px;
 }
+
+a {
+	margin-left: 100px;
+}

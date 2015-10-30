@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Spotify Template</title>
 	
 	<!-- Include libraries -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link rel="stylesheet" href="app.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="app.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
 	
@@ -17,39 +18,46 @@
 	
 </head>
 <body>
-  <!-- Initiate app -->
-  <div ng-app="myApp" ng-controller="myCtrl">
-    <!-- Form -->
-    <div class="container" name="songForm">
-      <h1>Spotify Track Search</h1>
-      <div class="col-md-6">
-        <h2>Search</h2>
-        <form ng-submit="getSongs()">
-          <label>Tracks:</label>
-          <input name="search" placeholder="Enter your search.." ng-model="track" class="form-control"></input>
-          <button type="submit" class="btn btn-primary" type="button">Search</button>
-        </form>
-        <!-- Only show results when we have them -->
-        <div ng-show="tracks" ng-repeat="track in tracks">
-          <h2>{{track.song}} by {{track.artist}}</h2>
-          <img ng-src="{{track.albumImg}}" alt="album image">
-          <a href="#" ng-click="play(track)">Preview this song</a>
-          <br>
-          <button class="btn" ng-click="addToFavorites(track)">Favorite</button>
-        </div>
-      </div>
+	<!-- Initiate app -->
+	<div ng-app="myApp" ng-controller="myCtrl">
+		<!-- Form -->
+		<div class="container" name="songForm">
+			<h1>Spotify Track Search</h1>
+			<div class="col-md-6">
+				<h2>Search</h2>
+				<form ng-submit="getSongs()">
+					<label>Tracks:</label>
+					<div class="input-group">
+						<input name="search" placeholder="Enter your search.." ng-model="track" class="form-control">
+				      	<span class="input-group-btn">
+				        	<button class="btn btn-default" type="button" type="submit">Search</button>
+				      	</span>						
+					</div>
+				</form>
+				<!-- Only show results when we have them -->
+				<div ng-show="tracks" ng-repeat="track in tracks">
+					<h2>{{track.name}} by {{track.artist}}</h2>
+					<img ng-src="{{track.albumImg}}" alt="album image">
+					
+					<br>
 
-      <div class="col-md-6">
-        <h2> Favorite Songs </h2>
-        <div ng-repeat="(name, favorite) in favorites">
-          <h2>{{name}} by {{favorite.artist}}</h2>
-          <img ng-src="{{favorite.albumImg}}" alt="album image">
-          <a href="#" ng-click="play(favorite)">Preview this song</a>
-          <br>
-          <button class="btn" ng-click="removeFromFavorites(favorite)">Remove</button>          
-        </div>
-      </div>
-    </div>
-  </div>
+					<button class="btn" ng-click="addToFavorites(track)">Favorite</button>
+					<a href="#" ng-click="play(track)"><i class="fa fa-play"></i></a>
+
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<h2> Favorite Songs </h2>
+				<div ng-repeat="(name, favorite) in favorites">
+					<h2>{{name}} by {{favorite.artist}}</h2>
+					<img ng-src="{{favorite.albumImg}}" alt="album image">					
+					<br>					
+					<button class="btn" ng-click="removeFromFavorites(favorite)">Remove</button>          
+					<a href="#" ng-click="play(favorite)"><i class="fa fa-play"></i> </a>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -41,12 +41,12 @@
 
       <div class="col-md-6">
         <h2> Favorite Songs </h2>
-        <div ng-repeat="fave in favorites">
-          <h2>{{fave.song}} by {{fave.artist}}</h2>
-          <img ng-src="{{fave.albumImg}}" alt="album image">
-          <a href="#" ng-click="play(fave)">Preview this song</a>
+        <div ng-repeat="(name, favorite) in favorites">
+          <h2>{{name}} by {{favorite.artist}}</h2>
+          <img ng-src="{{favorite.albumImg}}" alt="album image">
+          <a href="#" ng-click="play(favorite)">Preview this song</a>
           <br>
-          <button class="btn" ng-click="removeFromFavorites(fave)">Remove</button>          
+          <button class="btn" ng-click="removeFromFavorites(favorite)">Remove</button>          
         </div>
       </div>
     </div>

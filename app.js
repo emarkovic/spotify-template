@@ -8,32 +8,25 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
   $scope.currentSong = null;
   // These are the tracks that persist between multiple queries, and appear in
   // the favorites section
-  $scope.favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  $scope.favorites = JSON.parse(localStorage.getItem('favorites')) || {};
   // If you want to get REALLY fancy, then you could use localStorage so that
   // favorites don't disapear on a page refresh!
 
   // These are the tracks that represent the current query
   $scope.tracks = [];
 
-  $scope.songMap = JSON.parse(localStorage.getItem('songMap')) || {};
+  $scope.nameMap = JSON.parse(localStorage.getItem('songMap')) || {};
 
   // Adds a given song to our favorites, so we can play it whenever we want
-  $scope.addToFavorites = function(favTrack) {
-    $scope.favorites.push(favTrack);
+  $scope.addToFavorites = function(track) {
+    // $scope.favorites.push(favTrack);
+    $scope.favorites[track.name] = track;
     localStorage.setItem('favorites', JSON.stringify($scope.favorites));
-    var index = $scope.favorites.length - 1;
-    $scope.songMap[favTrack.song] = index;
-    localStorage.setItem('songMap', JSON.stringify($scope.songMap));
   }
 
   // Removes a given track from our favorites list
-  $scope.removeFromFavorites = function(removeTrack) {
-    var index = $scope.songMap[removeTrack.song];
-    
-    $scope.favorites.splice(index, 1);
-    // $scope.songMap[removeTrack.song] = null;
-
-    // localStorage.setItem('songMap', JSON.stringify($scope.songMap));
+  $scope.removeFromFavorites = function(track) {
+    delete $scope.favorites[track.name];
     localStorage.setItem('favorites', JSON.stringify($scope.favorites));
   }
 
@@ -70,11 +63,11 @@ var myCtrl = myApp.controller('myCtrl', function($scope, $http) {
       var songs = response.data.tracks.items;
       
       songs.forEach(function (song) {
-        console.log(song.album.images[0].url);
+        
         $scope.tracks.push({
           albumImg : song.album.images[0].url,
           preview : song.preview_url,
-          song : song.name,
+          name : song.name,
           artist : song.artists[0].name
         });      
       });
